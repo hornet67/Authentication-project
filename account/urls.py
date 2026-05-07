@@ -3,9 +3,10 @@ from .views import *
 
 
 urlpatterns = [
-    path('', Signup, name='signup'),
-    path('login/', Login, name='login'),
-    path('forget_password/', Forget_password, name='forget_password'),
-    path('reset_password/', Reset_password, name='reset_password'), 
+    path('', SignupView.as_view(), name='signup'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('forget_password/', ForgetPasswordView.as_view(), name='forget_password'),
+    path('reset_password/', ResetPasswordView.as_view(), name='reset_password'),
+    path('practice/', PracticeView.as_view(), name='practice'),
     
 ]
