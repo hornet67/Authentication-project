@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView,ListView
+from django.contrib.sessions.models import Session  
 from .models import Useraccount
 
 
@@ -22,6 +23,9 @@ class ResetPasswordView(TemplateView):
     template_name = "reset_password.html"
     
 class PracticeView(ListView):
+    
     model = Useraccount
     template_name = "practice.html"
     context_object_name = "users"
+    
+    
