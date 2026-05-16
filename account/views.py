@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView,ListView
-from django.contrib.sessions.models import Session  
+from django.views.generic import TemplateView,ListView,CreateView
+from django.contrib.sessions.models import Session 
+from django.urls import reverse_lazy 
 from .models import Useraccount
+
+from .forms import UseraccountForm
 
 
 # Create your views here.
@@ -9,8 +12,11 @@ from .models import Useraccount
 #def Signup(request):
 #   return render(request, 'signup.html')
 
-class SignupView(TemplateView):
+class SignupView(CreateView):
+    model = Useraccount
+    form_class = UseraccountForm
     template_name = "signup.html"
+    success_url = reverse_lazy('login') 
 
 
 class LoginView(TemplateView):
