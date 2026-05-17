@@ -20,20 +20,17 @@ class SignupView(CreateView):
     template_name = "signup.html"
     success_url = reverse_lazy('login')
     
-    def post(self, request, *args, **kwargs):
-        form = UseraccountForm(request.POST)
-        if form.is_valid():
-            # Use the form's save method which already has password hashing
-            form.save()
-            messages.success(request, "Account created successfully.")
-            return redirect('login')
-        else:
-            # Show specific error messages from the form
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f"{field}: {error}")
-            messages.error(request, "Please correct the errors below.")
-        return render(request, self.template_name, {'form': form})
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, "Account created successfully.")
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        # Messages for form errors (optional - Django already shows errors on form)
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, f"{field}: {error}")
+        return super().form_invalid(form)
         
 class LoginView(TemplateView):
     template_name = "login.html"

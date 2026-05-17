@@ -1,5 +1,6 @@
 from .models import Useraccount
 from django import forms
+from django.contrib.auth.hashers import make_password
 
 class UseraccountForm(forms.ModelForm):
     class Meta:
@@ -22,7 +23,7 @@ class UseraccountForm(forms.ModelForm):
         """Save the user with hashed password"""
         user = super().save(commit=False)
         # Hash the password before saving
-        user.set_password(self.cleaned_data['password'])
+        user.password = make_password(self.cleaned_data['password'])
         if commit:
             user.save()
         return user
